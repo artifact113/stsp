@@ -1,0 +1,10 @@
+NAME : eil4
+COMMENT : 4-city problem (Christofides/Eilon)
+TYPE : TSP
+DIMENSION : 4
+EDGE_WEIGHT_TYPE : EUC_2D
+NODE_COORD_SECTION
+1 0 0
+2 3 0
+3 7 3
+4 0 3
