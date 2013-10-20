@@ -16,9 +16,9 @@ void AlgorythmData::calculateDistances() {
 	AlgorythmData::AlgorythmData(int size) : size(size) {
 		longtitudes = new int[size + 1];
 		latitudes = new int[size + 1];
-		distances = new int*[size + 1];
+		distances = new double*[size + 1];
 		for(int i = 0; i < size + 1; i++) {
-			distances[i] = new int[size + 1];
+			distances[i] = new double[size + 1];
 		}	
 	}
 	

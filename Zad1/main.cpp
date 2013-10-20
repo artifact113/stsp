@@ -27,7 +27,7 @@ int main(int argc, char** argv) {
 		std::cout << "Error while reading file\n";
 		return -1;
 	} else {
- 		measureAlgorythmPerformance(&randomSolver, aData, minTimeInSec, minRepeats);
+ 		measureAlgorythmPerformance(&steepestSolver, aData, minTimeInSec, minRepeats);	
 	}
 
 	delete aData;

@@ -7,6 +7,6 @@
 
 #include "reader.h"
 #include "measurement.h"
-#include "algorythms.h"
+#include "algorithms.h"
 
 #endif //MAIN_H
