@@ -12,7 +12,11 @@ void measureAlgorythmPerformance(algorythmFunction aFunc, AlgorythmData* aData,
 	do {
 		result = aFunc(aData);
 		rate = rateResult(aData, result);
-		std::cout << "r " << rate << std::endl;
+		std::cout << "r " << rate << " ";
+		for(int i = 0; i < result.size(); i++) {
+			std::cout << result[i] << " ";
+		}
+		std::cout << std::endl;
 		repeats++;
 
 	} while (clock() - start < minDurationInSec * 1000000
