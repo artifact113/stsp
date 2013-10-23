@@ -2,13 +2,23 @@
 
 std::vector<int> randomSolver(AlgorythmData* aData) {
 
-	std::vector<int> result;
+	std::vector<int> result, minResult;
+	double rate, minRate = 1000000; 
+	clock_t start = clock();
 
-	for (int i = 1; i <= aData->size; i++) {
-		result.push_back(i);
-	}
+	do {
+		result.clear();
+		for (int i = 1; i <= aData->size; i++) {
+			result.push_back(i);
+		}
 
-	random_shuffle(result.begin(), result.end());
+		random_shuffle(result.begin(), result.end());
+		rate = rateResult(aData, result);
+		if(rate < minRate) {
+			minRate = rate;
+			minResult = result;
+		}
+	} while (clock() - start < aData->duration * 1000000);
 
 	return result;
 }

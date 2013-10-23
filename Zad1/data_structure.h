@@ -9,6 +9,7 @@ struct AlgorythmData {
 	int *longtitudes;
 	int *latitudes;
 	double **distances;
+	double duration;
 
 	void calculateDistances();
 

@@ -27,9 +27,9 @@ int main(int argc, char** argv) {
 	char* fileName;
 	char algorithm; // r - random, g - greedy, s - steepest, h - heuristic
 
-	if (argc < 4) {
+	if (argc < 5) {
 		std::cout
-				<< "Wrong arguments. Usage : <algorithm (r, g, s, h)> <filename> <minTimeInSec> <minRepeats>\n";
+				<< "Wrong arguments. Usage : <algorithm (r, g, s, h)> <filename> <minTimeInSec> <minRepeats> <randomTimeInSec>\n";
 		return -1;
 	} else {
 		algorithm = argv[1][0];
@@ -47,6 +47,9 @@ int main(int argc, char** argv) {
 		return -1;
 	} else {
 		std::cout << "# " << algorithm << "_" << fileName << std::endl;
+		if(algorithm == 'r') {
+			aData->duration = atoi(argv[5]);
+		}
 		algorythmFunction aFunc = getAlgorithmFunc(algorithm);
 		measureAlgorythmPerformance(aFunc, aData, minTimeInSec, minRepeats);
 	}
