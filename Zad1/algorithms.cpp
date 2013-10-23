@@ -24,7 +24,7 @@ std::vector<int> greedySolver(AlgorythmData* aData) {
 	result = randomSolver(aData);
 	tempResult.assign(result.begin(), result.end());
 	rate = rateResult(aData, result);
-	std::cout << "FirstRate: " << rate << std::endl;
+	std::cout << "f " << rate << std::endl;
 
 	while (1) {
 		tempResult = neighbourGenerator.nextNeighbour(result);
@@ -42,8 +42,8 @@ std::vector<int> greedySolver(AlgorythmData* aData) {
 			}
 		}
 	}
-	std::cout << "Steps: " << steps << std::endl;
-	std::cout << "VisitedResults: " << visitedResults << std::endl;
+	std::cout << "s " << steps << std::endl;
+	std::cout << "v " << visitedResults << std::endl;
 	return result;
 }
 
@@ -62,7 +62,7 @@ std::vector<int> steepestSolver(AlgorythmData* aData) {
 	tempRate = rate;
 	currentRate = rate;
 	
-	std::cout << "FirstRate: " << rate << std::endl;
+	std::cout << "f " << rate << std::endl;
 
 	while (1) {
 		tempResult = neighbourGenerator.nextNeighbour(result);
@@ -85,8 +85,8 @@ std::vector<int> steepestSolver(AlgorythmData* aData) {
 			}
 		}
 	}
-	std::cout << "Steps: " << steps << std::endl;
-	std::cout << "VisitedResults: " << visitedResults << std::endl; 
+	std::cout << "s " << steps << std::endl;
+	std::cout << "v " << visitedResults << std::endl;
 	return result;
 }
 
