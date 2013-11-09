@@ -16,6 +16,8 @@ algorythmFunction getAlgorithmFunc(char algorithm) {
 		return &greedyHeuristic;
 	case 'r':
 		return &randomSolver;
+	case 'a':
+		return &simulatedAnnealing;
 	default:
 		return &randomSolver;
 
@@ -25,7 +27,7 @@ algorythmFunction getAlgorithmFunc(char algorithm) {
 int main(int argc, char** argv) {
 	int minRepeats, minTimeInSec;
 	char* fileName;
-	char algorithm; // r - random, g - greedy, s - steepest, h - heuristic
+	char algorithm; // r - random, g - greedy, s - steepest, h - heuristic, a - simulated annealing
 
 	if (argc < 5) {
 		std::cout
@@ -38,10 +40,13 @@ int main(int argc, char** argv) {
 		minRepeats = atoi(argv[4]);
 	}
 
+	std::cout << "# preparing aData" << std::endl;
 	AlgorythmData *aData = 0;
+	std::cout << "# preparing aData is done" << std::endl;
 
 	srand(time(0));
 	aData = loadData(fileName);
+	std::cout << "# reading file " << fileName << std::endl;
 	if (aData == 0) {
 		std::cout << "Error while reading file\n";
 		return -1;
@@ -49,6 +54,12 @@ int main(int argc, char** argv) {
 		std::cout << "# " << algorithm << "_" << fileName << std::endl;
 		if(algorithm == 'r') {
 			aData->duration = atoi(argv[5]);
+		}
+		if(algorithm == 'a') {
+					std::cout << "# choosen algorithm is simulated annealing" << std::endl;
+					aData->temperature = atof(argv[5]);
+					aData->coolingRate = atof(argv[6]);
+					aData->repeatsPerStep = atoi(argv[7]);
 		}
 		algorythmFunction aFunc = getAlgorithmFunc(algorithm);
 		measureAlgorythmPerformance(aFunc, aData, minTimeInSec, minRepeats);

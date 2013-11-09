@@ -1,6 +1,7 @@
 #include "reader.h"	
 
 AlgorythmData* loadData(char* fileName) {
+	std::cout << "# loading aData from file" << std::endl;
 	AlgorythmData* aData = 0;
 	std::string line;
 	std::ifstream myfile(fileName);
@@ -11,7 +12,6 @@ AlgorythmData* loadData(char* fileName) {
 			if (v[0][0] == 'D' && v[0][1] == 'I' && v[0][2] == 'M') {
 				int size = atoi(v[1].c_str());
 				aData = new AlgorythmData(size);
-				std::cout << "SIZE: " << size << " " << aData->size << std::endl;
 			} else {
 				split(line, v, ' ');
 				int vertex = atoi(v[0].c_str());
@@ -25,8 +25,8 @@ AlgorythmData* loadData(char* fileName) {
 		myfile.close();
 	}
 	return aData;
-};
-
+}
+;
 
 unsigned int split(const std::string &txt, std::vector<std::string> &strs,
 		char ch) {
