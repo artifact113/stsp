@@ -13,11 +13,15 @@ void AlgorythmData::calculateDistances() {
 
 AlgorythmData::AlgorythmData() {
 }
-;
 
 AlgorythmData::AlgorythmData(int size) :
 		size(size) {
 	std::cout << "n " << size << std::endl;
+	/*
+	temperature = 20;
+	coolingRate = 0.2;
+	repeatsPerStep = 200;
+	*/
 	longtitudes = new int[size + 1];
 	latitudes = new int[size + 1];
 	distances = new double*[size + 1];
