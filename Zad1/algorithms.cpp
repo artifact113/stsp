@@ -59,7 +59,7 @@ std::vector<int> greedySolver(AlgorythmData* aData) {
 
 std::vector<int> simulatedAnnealing(AlgorythmData* aData) {
 
-	std::cout << "#annealing starts" << std::endl;
+	//std::cout << "#annealing starts" << std::endl;
 
 	std::vector<int> result, tempResult;
 	double rate, tempRate;
