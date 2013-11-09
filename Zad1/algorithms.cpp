@@ -3,7 +3,7 @@
 std::vector<int> randomSolver(AlgorythmData* aData) {
 
 	std::vector<int> result, minResult;
-	double rate, minRate = 1000000; 
+	double rate, minRate = 1000000;
 	clock_t start = clock();
 
 	do {
@@ -14,7 +14,7 @@ std::vector<int> randomSolver(AlgorythmData* aData) {
 
 		random_shuffle(result.begin(), result.end());
 		rate = rateResult(aData, result);
-		if(rate < minRate) {
+		if (rate < minRate) {
 			minRate = rate;
 			minResult = result;
 		}
@@ -57,6 +57,63 @@ std::vector<int> greedySolver(AlgorythmData* aData) {
 	return result;
 }
 
+std::vector<int> simulatedAnnealing(AlgorythmData* aData) {
+
+	std::cout << "#annealing starts" << std::endl;
+
+	std::vector<int> result, tempResult;
+	double rate, tempRate;
+	double temperature = aData->temperature;
+	double coolingRate = aData->coolingRate;
+	double repeats = aData->repeatsPerStep;
+	int steps = 0;
+	int visitedResults = 0;
+	NeighbourGenerator neighbourGenerator = NeighbourGenerator(aData->size);
+
+	neighbourGenerator.init();
+	result = randomSolver(aData);
+	tempResult.assign(result.begin(), result.end());
+	rate = rateResult(aData, result);
+	std::cout << "f " << rate << std::endl;
+
+	while (1) {
+		tempResult = neighbourGenerator.nextNeighbour(result);
+		visitedResults++;
+		if (tempResult.empty()) {
+			break;
+		} else {
+			//TODO: change to rateDelta
+			tempRate = rateResult(aData, tempResult);
+			if (tempRate < rate) {
+				rate = tempRate;
+				result.assign(tempResult.begin(), tempResult.end());
+				neighbourGenerator.init();
+				steps++;
+			} else {
+				if (exp((-(tempRate - rate)) / temperature)
+						> ((double) rand() / (RAND_MAX))) {
+					rate = tempRate;
+					result.assign(tempResult.begin(), tempResult.end());
+					neighbourGenerator.init();
+					steps++;
+				}
+			}
+		}
+		if (temperature < 0.000000001) {
+			break;
+		}
+		if (steps % (int) repeats == 0) {
+			//break;
+			temperature *= 1 - coolingRate;
+			//std::cout << "# temperature " << temperature << std::endl;
+		}
+	}
+	std::cout << "s " << steps << std::endl;
+	std::cout << "v " << visitedResults << std::endl;
+	return result;
+
+}
+
 std::vector<int> steepestSolver(AlgorythmData* aData) {
 	std::vector<int> result, currentResult, tempResult;
 	double rate, currentRate, tempRate;
@@ -71,7 +128,7 @@ std::vector<int> steepestSolver(AlgorythmData* aData) {
 	rate = rateResult(aData, result);
 	tempRate = rate;
 	currentRate = rate;
-	
+
 	std::cout << "f " << rate << std::endl;
 
 	while (1) {
@@ -114,7 +171,8 @@ std::vector<int> greedyHeuristic(AlgorythmData* aData) {
 
 	for (unsigned int i = 0; i < start.size(); i++) {
 
-		std::vector<int> current_result = greedySolveFromVertex(start[i], aData);
+		std::vector<int> current_result = greedySolveFromVertex(start[i],
+				aData);
 		if (rateResult(aData, current_result) < current_rate) {
 			result = current_result;
 			current_rate = rateResult(aData, current_result);
@@ -149,8 +207,8 @@ int getNearest(int vertex, AlgorythmData* aData, std::vector<int> v) {
 
 	for (int i = 1; i <= aData->size; i++) {
 
-		if (aData->distances[vertex][i] < min && vertex != i && !(std::find(
-				v.begin(), v.end(), i) != v.end())) {
+		if (aData->distances[vertex][i] < min && vertex != i
+				&& !(std::find(v.begin(), v.end(), i) != v.end())) {
 
 			min = aData->distances[vertex][i];
 			choosen_vert = i;

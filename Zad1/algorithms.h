@@ -14,6 +14,8 @@ std::vector<int> randomSolver(AlgorythmData* aData);
 std::vector<int> greedySolver(AlgorythmData* aData);
 std::vector<int> steepestSolver(AlgorythmData* aData);
 
+std::vector<int> simulatedAnnealing(AlgorythmData* aData);
+
 std::vector<int> greedyHeuristic(AlgorythmData* aData);
 int getNearest(int vertex, AlgorythmData* aData, std::vector<int> v);
 std::vector<int> greedySolveFromVertex(int vertex, AlgorythmData* aData);
