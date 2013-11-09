@@ -1,4 +1,4 @@
-//example usage : ./main problems/eil51.tsp 2 10
+//example usage : ./main g problems/eil51.tsp 2 10
 
 #include "main.h"
 

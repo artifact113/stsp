@@ -34,9 +34,10 @@ std::vector<int> NeighbourGenerator::nextNeighbour(std::vector<int> vec) {
 	if(firstCurrent == firstStart && secondCurrent == secondStart) {
 		finished = true;
 	}
-	
 	neighbour.assign(vec.begin(), vec.end());
-	std::swap(neighbour[firstCurrent], neighbour[secondCurrent]);
+
+	//std::swap(neighbour[firstCurrent], neighbour[secondCurrent]);
+	std::reverse(neighbour.begin() + firstCurrent, neighbour.begin() + secondCurrent + 1);
 	
 	return neighbour;
 	

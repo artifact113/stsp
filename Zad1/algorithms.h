@@ -21,5 +21,7 @@ int getNearest(int vertex, AlgorythmData* aData, std::vector<int> v);
 std::vector<int> greedySolveFromVertex(int vertex, AlgorythmData* aData);
 
 double rateResult(AlgorythmData* aData, std::vector<int> vec);
+double rateDelta(AlgorythmData* aData, std::vector<int> prevResult,
+		std::vector<int> nextResult, int firstIdxChanged, int secondIdxChanged);
 
 #endif //ALGORYTHMS_H
