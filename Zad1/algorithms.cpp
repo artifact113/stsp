@@ -42,11 +42,8 @@ std::vector<int> greedySolver(AlgorythmData* aData) {
 		if (tempResult.empty()) {
 			break;
 		} else {
-			//TODO: change to rateDelta
-		//	tempRate = rateResult(aData, tempResult);
-			tempRate = rateDelta(aData, result, tempResult, 
-					neighbourGenerator.firstCurrent, neighbourGenerator.secondCurrent);
-			if (tempRate < 0) {
+				tempRate = rateResult(aData, tempResult);
+			if (tempRate < rate) {
 				rate = tempRate;
 				result.assign(tempResult.begin(), tempResult.end());
 				neighbourGenerator.init();
@@ -84,11 +81,8 @@ std::vector<int> simulatedAnnealing(AlgorythmData* aData) {
 		if (tempResult.empty()) {
 			break;
 		} else {
-			//TODO: change to rateDelta
-		//	tempRate = rateResult(aData, tempResult);
-			tempRate = rateDelta(aData, result, tempResult, 
-								neighbourGenerator.firstCurrent, neighbourGenerator.secondCurrent);
-			if (tempRate < 0) {
+				tempRate = rateResult(aData, tempResult);
+			if (tempRate < rate) {
 				rate = tempRate;
 				result.assign(tempResult.begin(), tempResult.end());
 				neighbourGenerator.init();
@@ -119,48 +113,46 @@ std::vector<int> simulatedAnnealing(AlgorythmData* aData) {
 }
 
 std::vector<int> steepestSolver(AlgorythmData* aData) {
-        std::vector<int> result, currentResult, tempResult;
-        double rate, currentRate, tempRate;
-        int steps = 0;
-        int visitedResults = 0;
-        NeighbourGenerator neighbourGenerator = NeighbourGenerator(aData->size);
+	std::vector<int> result, currentResult, tempResult;
+	double rate, currentRate, tempRate;
+	int steps = 0;
+	int visitedResults = 0;
+	NeighbourGenerator neighbourGenerator = NeighbourGenerator(aData->size);
 
-        neighbourGenerator.init();
-        result = randomSolver(aData);
-        currentResult.assign(result.begin(), result.end());
-        tempResult.assign(result.begin(), result.end());
-        rate = rateResult(aData, result);
-        tempRate = rate;
-        currentRate = rate;
+	neighbourGenerator.init();
+	result = randomSolver(aData);
+	currentResult.assign(result.begin(), result.end());
+	tempResult.assign(result.begin(), result.end());
+	rate = rateResult(aData, result);
+	tempRate = rate;
+	currentRate = rate;
 
-        std::cout << "f " << rate << std::endl;
+	std::cout << "f " << rate << std::endl;
 
-        while (1) {
-                tempResult = neighbourGenerator.nextNeighbour(result);
-                visitedResults++;
-                if (tempResult.empty()) {
-                        if (currentRate >= rate) {
-                                break;
-                        } else {
-                                rate = currentRate;
-                                result.assign(currentResult.begin(), currentResult.end());
-                                neighbourGenerator.init();
-                                steps++;
-                        }
-                } else {
-                        //TODO: change to rateDelta
-                        tempRate = rateResult(aData, tempResult);
-                        if (tempRate < currentRate) {
-                                currentRate = tempRate;
-                                currentResult.assign(tempResult.begin(), tempResult.end());
-                        }
-                }
-        }
-        std::cout << "s " << steps << std::endl;
-        std::cout << "v " << visitedResults << std::endl;
-        return result;
+	while (1) {
+		tempResult = neighbourGenerator.nextNeighbour(result);
+		visitedResults++;
+		if (tempResult.empty()) {
+			if (currentRate >= rate) {
+				break;
+			} else {
+				rate = currentRate;
+				result.assign(currentResult.begin(), currentResult.end());
+				neighbourGenerator.init();
+				steps++;
+			}
+		} else {
+			tempRate = rateResult(aData, tempResult);
+			if (tempRate < currentRate) {
+				currentRate = tempRate;
+				currentResult.assign(tempResult.begin(), tempResult.end());
+			}
+		}
+	}
+	std::cout << "s " << steps << std::endl;
+	std::cout << "v " << visitedResults << std::endl;
+	return result;
 }
-
 
 std::vector<int> greedyHeuristic(AlgorythmData* aData) {
 
@@ -228,9 +220,9 @@ double rateDelta(AlgorythmData* aData, std::vector<int> prevResult,
 		std::vector<int> nextResult, int firstIdxChanged, int secondIdxChanged) {
 	int size = aData->size;
 	double oldRate = aData->distances[prevResult[firstIdxChanged]][prevResult[(firstIdxChanged - 1 + size) % size]]
-	                + aData->distances[prevResult[secondIdxChanged]][prevResult[(secondIdxChanged + 1) % size]];
+			+ aData->distances[prevResult[secondIdxChanged]][prevResult[(secondIdxChanged + 1) % size]];
 	double newRate = aData->distances[nextResult[firstIdxChanged]][nextResult[(firstIdxChanged - 1 + size) % size]]
-		                + aData->distances[nextResult[secondIdxChanged]][nextResult[(secondIdxChanged + 1) % size]]; 
+			+ aData->distances[nextResult[secondIdxChanged]][nextResult[(secondIdxChanged + 1) % size]];
 
 	return newRate - oldRate;
 }

@@ -17,6 +17,12 @@ AlgorythmData::AlgorythmData() {
 AlgorythmData::AlgorythmData(int size) :
 		size(size) {
 	std::cout << "n " << size << std::endl;
+	tabuListSize = size/2 + 1;
+	masterListSize = size/20 + 1;
+	maxIterationsMasterList = 2 * size;
+	//thresholdOfMasterList = 0.5;
+	maxIterationsWithoutImprovement = 4 * size;
+	
 	/*
 	temperature = 20;
 	coolingRate = 0.2;

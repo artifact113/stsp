@@ -1,4 +1,4 @@
-//example usage : ./main g problems/eil51.tsp 2 10
+//example usages : ./main g problems/eil51.tsp 2 10
 
 #include "main.h"
 
@@ -7,7 +7,8 @@ using namespace std;
 algorythmFunction getAlgorithmFunc(char algorithm) {
 
 	switch (algorithm) {
-
+	case 't' : 
+		return &tabuSearchSolver;
 	case 's':
 		return &steepestSolver;
 	case 'g':
@@ -41,11 +42,11 @@ int main(int argc, char** argv) {
 	}
 
 	std::cout << "# preparing aData" << std::endl;
-	AlgorythmData *aData = 0;
+	//AlgorythmData *aData = 0;
 	std::cout << "# preparing aData is done" << std::endl;
 
 	srand(time(0));
-	aData = loadData(fileName);
+	AlgorythmData* aData = loadData(fileName);
 	std::cout << "# reading file " << fileName << std::endl;
 	if (aData == 0) {
 		std::cout << "Error while reading file\n";

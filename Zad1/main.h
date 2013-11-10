@@ -8,5 +8,6 @@
 #include "reader.h"
 #include "measurement.h"
 #include "algorithms.h"
+#include "tabu_search.h"
 
 #endif //MAIN_H
