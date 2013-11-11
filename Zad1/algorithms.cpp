@@ -97,7 +97,7 @@ std::vector<int> simulatedAnnealing(AlgorythmData* aData) {
 				}
 			}
 		}
-		if (temperature < 0.000000001) {
+		if (temperature < 0.0001 || steps > repeats * 10000000) {
 			break;
 		}
 		if (steps % (int) repeats == 0) {
